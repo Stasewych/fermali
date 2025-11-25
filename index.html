@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fermali Kebab | Справжній Турецький Смак на Чорновола</title>
+    <meta name="description" content="Автентичний Тантуні, Іскендер та легендарна Базука. Справжній турецький стріт-фуд у Львові на проспекті Чорновола 16Д.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#111111',
+                        darker: '#0a0a0a',
+                        primary: '#E63946', // Deep Red
+                        accent: '#FCA311',  // Gold/Orange
+                        gray: {
+                            800: '#1f1f1f',
+                            900: '#181818',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        display: ['Oswald', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(17,17,17,0.3), rgba(17,17,17,0.9)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1920&auto=format&fit=crop')",
+                        'spice-pattern': "url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=1920&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E63946;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c92a35;
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .fire-anim {
+            animation: flicker 2s infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .tab-active {
+            background-color: #E63946;
+            color: white;
+            border-color: #E63946;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-dark/95 backdrop-blur-sm border-b border-gray-800 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-display font-bold text-3xl tracking-wider text-white">
+                        FERMALI <span class="text-primary">KEBAB</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#menu" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-lg font-medium font-display uppercase tracking-wide">Меню</a>
+                        <a href="#features" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-lg font-medium font-display uppercase tracking-wide">Атмосфера</a>
+                        <a href="#reviews" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-lg font-medium font-display uppercase tracking-wide">Відгуки</a>
+                        <a href="#contacts" class="hover:text-primary transition-colors px-3 py-2 rounded-md text-lg font-medium font-display uppercase tracking-wide">Контакти</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="tel:+380955329899" class="bg-primary hover:bg-red-700 text-white font-display font-bold py-2 px-6 rounded transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(230,57,70,0.5)]">
+                        <i class="fas fa-phone-alt mr-2"></i> +380 95 532 9899
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMenu()" class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <span class="sr-only">Відкрити меню</span>
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-darker border-b border-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#menu" onclick="toggleMenu()" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold font-display uppercase">Меню</a>
+                <a href="#features" onclick="toggleMenu()" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold font-display uppercase">Атмосфера</a>
+                <a href="#reviews" onclick="toggleMenu()" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold font-display uppercase">Відгуки</a>
+                <a href="#contacts" onclick="toggleMenu()" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold font-display uppercase">Контакти</a>
+                <a href="tel:+380955329899" class="text-primary block px-3 py-4 rounded-md text-base font-bold font-display uppercase border-t border-gray-800 mt-2">
+                    <i class="fas fa-phone-alt mr-2"></i> Подзвонити
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-no-repeat bg-fixed overflow-hidden">
+        <!-- Video Background (Optional - uncomment if you have the file 'hero-video.mp4' in folder) -->
+        <!--
+        <video autoplay muted loop playsinline class="absolute w-full h-full object-cover z-0 opacity-50">
+            <source src="hero-video.mp4" type="video/mp4">
+        </video>
+        -->
+        <div class="absolute inset-0 bg-black/60 z-0"></div>
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
+            <div class="inline-block mb-4 px-4 py-1 border border-accent text-accent rounded-full text-sm font-bold tracking-widest uppercase bg-black/50 backdrop-blur-sm">
+                Authentic Turkish Food
+            </div>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-6 tracking-tight text-shadow leading-tight">
+                ЛЬВІВ, <span class="text-primary fire-anim">ЗУСТРІЧАЙ</span><br> СТАМБУЛ!
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-10 font-light max-w-3xl mx-auto">
+                Автентичний Тантуні, Іскендер та 800-грамова Базука. <br class="hidden md:block">Справжній турецький смак на проспекті Чорновола.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#menu" class="w-full sm:w-auto bg-primary hover:bg-red-700 text-white font-display font-bold text-xl py-4 px-10 rounded transition-all transform hover:-translate-y-1 shadow-lg shadow-primary/30 text-center">
+                    ДИВИТИСЬ МЕНЮ
+                </a>
+                <a href="https://www.instagram.com/fermali_kebab/" target="_blank" class="w-full sm:w-auto bg-transparent border-2 border-white hover:border-primary hover:text-primary text-white font-display font-bold text-xl py-3.5 px-10 rounded transition-all text-center">
+                    <i class="fab fa-instagram mr-2"></i> INSTAGRAM
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Features Grid (Why Us?) -->
+    <section id="features" class="py-20 bg-darker relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-accent/5 rounded-full filter blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4">БІЛЬШЕ НІЖ ПРОСТО КЕБАБ</h2>
+                <div class="h-1 w-24 bg-primary mx-auto mb-6"></div>
+                <p class="text-xl text-gray-400 font-light italic">"Затишок цегли, аромат спецій та смак подорожей."</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1: Interior -->
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-map-location-dot text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-white mb-3">Карта Світу Зі Спецій</h3>
+                    <p class="text-gray-400">Наш інтер'єр розповідає історію. Унікальна карта світу на стіні, створена з натуральних спецій та зерен — символ нашої любові до різноманіття смаків.</p>
+                </div>
+
+                <!-- Feature 2: Authentic Cooking -->
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-fire-burner text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-white mb-3">Процес — це Шоу</h3>
+                    <p class="text-gray-400">Ми не ховаємо кухню. Ви бачите, як ми нарізаємо свіже м'ясо, смажимо картоплю та загортаємо все це у хрусткий лаваш. Чесність — наш головний інгредієнт.</p>
+                </div>
+
+                <!-- Feature 3: Portions -->
+                <div class="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-utensils text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-white mb-3">Щедрі Порції</h3>
+                    <p class="text-gray-400">Ми не шкодуємо начинки. Від соковитого Тантуні до гігантської "Базуки" — ви отримуєте максимум м'яса та овочів за свої гроші. Голодним не піде ніхто.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-accent font-display tracking-widest uppercase text-sm font-bold">Смакуй Туреччину</span>
+                <h2 class="text-5xl md:text-6xl font-display font-bold text-white mt-2">НАШЕ МЕНЮ</h2>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" id="menu-tabs">
+                <button onclick="filterMenu('all')" class="menu-tab px-6 py-2 rounded-full border border-gray-700 text-gray-300 font-display font-bold uppercase hover:border-primary hover:text-primary transition-all tab-active" data-category="all">Все</button>
+                <button onclick="filterMenu('tantuni')" class="menu-tab px-6 py-2 rounded-full border border-gray-700 text-gray-300 font-display font-bold uppercase hover:border-primary hover:text-primary transition-all" data-category="tantuni">Tantuni</button>
+                <button onclick="filterMenu('kebab')" class="menu-tab px-6 py-2 rounded-full border border-gray-700 text-gray-300 font-display font-bold uppercase hover:border-primary hover:text-primary transition-all" data-category="kebab">Kebab Hits</button>
+                <button onclick="filterMenu('monsters')" class="menu-tab px-6 py-2 rounded-full border border-gray-700 text-gray-300 font-display font-bold uppercase hover:border-primary hover:text-primary transition-all" data-category="monsters">Monsters</button>
+                <button onclick="filterMenu('plates')" class="menu-tab px-6 py-2 rounded-full border border-gray-700 text-gray-300 font-display font-bold uppercase hover:border-primary hover:text-primary transition-all" data-category="plates">Plates</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="menu-container">
+                
+                <!-- Tantuni Items -->
+                <div class="menu-item group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-600 transition-all" data-category="tantuni">
+                    <div class="p-6 flex flex-col sm:flex-row gap-4 h-full">
+                        <div class="w-full sm:w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1657262453896-192a5482381e?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-display font-bold text-white group-hover:text-primary transition-colors">Тантуні з Куркою</h3>
+                                <span class="text-xl font-bold text-accent">250 ₴</span>
+                            </div>
+                            <p class="text-gray-400 mb-4 text-sm">Соковите філе, дрібно нарізане, обсмажене зі спеціями, зелень, помідор, цибуля в тонкому лаваші.</p>
+                            <span class="inline-block px-2 py-1 bg-gray-800 text-xs text-gray-300 rounded uppercase font-bold tracking-wider">Classic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-600 transition-all" data-category="tantuni">
+                    <div class="p-6 flex flex-col sm:flex-row gap-4 h-full">
+                        <div class="w-full sm:w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1644364935904-74ea5474b39c?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-display font-bold text-white group-hover:text-primary transition-colors">Тантуні з Телятиною</h3>
+                                <span class="text-xl font-bold text-accent">300 ₴</span>
+                            </div>
+                            <p class="text-gray-400 mb-4 text-sm">Насичений смак відбірної телятини, турецькі спеції, свіжа петрушка та цибуля сумах.</p>
+                            <span class="inline-block px-2 py-1 bg-gray-800 text-xs text-gray-300 rounded uppercase font-bold tracking-wider">Top Choice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kebab Hits -->
+                <div class="menu-item group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-600 transition-all" data-category="kebab">
+                    <div class="p-6 flex flex-col sm:flex-row gap-4 h-full">
+                        <div class="w-full sm:w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-display font-bold text-white group-hover:text-primary transition-colors">Fermali Special</h3>
+                                <span class="text-xl font-bold text-accent">250 ₴</span>
+                            </div>
+                            <p class="text-gray-400 mb-4 text-sm">Фірмовий рецепт. Курка, картопля, маринований огірок, фірмовий часниковий соус.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-600 transition-all" data-category="kebab">
+                    <div class="p-6 flex flex-col sm:flex-row gap-4 h-full">
+                        <div class="w-full sm:w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1561651823-34febf5a90aa?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-display font-bold text-white group-hover:text-primary transition-colors">ВУЛКАН (Volcano)</h3>
+                                <span class="text-xl font-bold text-accent">350 ₴</span>
+                            </div>
+                            <p class="text-gray-400 mb-4 text-sm">Картопля фрі всередині, густий йогурт, томати, вибух смаку та турецькі спеції.</p>
+                            <span class="inline-block px-2 py-1 bg-accent/20 text-accent text-xs rounded uppercase font-bold tracking-wider"><i class="fas fa-fire mr-1"></i> Hot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item group bg-gray-900 border border-red-900/50 rounded-xl overflow-hidden hover:border-primary transition-all relative" data-category="kebab">
+                    <div class="absolute -right-8 top-4 bg-primary text-white text-xs font-bold px-10 py-1 transform rotate-45 shadow-lg z-10">SPICY</div>
+                    <div class="p-6 flex flex-col sm:flex-row gap-4 h-full">
+                        <div class="w-full sm:w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1541592106381-b31e9674c0e5?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-display font-bold text-primary group-hover:text-red-400 transition-colors">ПСИХОПАТ</h3>
+                                <span class="text-xl font-bold text-accent">250 ₴</span>
+                            </div>
+                            <p class="text-gray-400 mb-4 text-sm">🌶️🌶️🌶️ Дуже гостро. Тільки для сміливих. Спеціальний гострий перець та соус.</p>
+                            <div class="flex gap-1 text-primary">
+                                <i class="fas fa-pepper-hot"></i>
+                                <i class="fas fa-pepper-hot"></i>
+                                <i class="fas fa-pepper-hot"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monsters -->
+                <div class="menu-item group bg-gradient-to-br from-gray-900 to-gray-800 border-2 border-accent rounded-xl overflow-hidden hover:shadow-[0_0_20px_rgba(252,163,17,0.2)] transition-all md:col-span-2" data-category="monsters">
+                    <div class="p-8 flex flex-col md:flex-row items-center gap-8 h-full">
+                        <div class="w-full md:w-48 h-48 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1529006557810-274bc021f99c?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center shadow-2xl"></div>
+                        <div class="flex-grow text-center md:text-left">
+                            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                                <h3 class="text-4xl font-display font-bold text-white group-hover:text-accent transition-colors">БАЗУКА (800г)</h3>
+                                <span class="text-3xl font-bold text-accent mt-2 md:mt-0">400 ₴</span>
+                            </div>
+                            <p class="text-gray-300 mb-6 text-lg">Кілограм щастя. Ти впевнений, що впораєшся? Гігантська порція м'яса, картоплі, овочів та соусу. Найбільший кебаб, який ти бачив.</p>
+                            <span class="inline-block px-4 py-2 bg-accent text-darker font-bold rounded uppercase tracking-widest shadow-lg animate-pulse">
+                                <i class="fas fa-crown mr-2"></i> Challenge
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plates -->
+                <div class="menu-item group bg-gray-900 border border-gray-800 rounded-xl overflow-hidden hover:border-gray-600 transition-all" data-category="plates">
+                    <div class="p-6 flex flex-col sm:flex-row gap-4 h-full">
+                        <div class="w-full sm:w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 bg-[url('https://images.unsplash.com/photo-1623961990059-28356e226a77?q=80&w=400&auto=format&fit=crop')] bg-cover bg-center"></div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-display font-bold text-white group-hover:text-primary transition-colors">Іскендер Кебаб</h3>
+                                <span class="text-xl font-bold text-accent">450 ₴</span>
+                            </div>
+                            <p class="text-gray-400 mb-4 text-sm">Класика Туреччини: шматочки піти, тонко нарізане м'ясо, залиті гарячим томатним соусом та маслом. Подається з йогуртом.</p>
+                            <span class="inline-block px-2 py-1 bg-gray-800 text-xs text-gray-300 rounded uppercase font-bold tracking-wider">На тарілці</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-darker border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center space-x-2 text-accent text-2xl mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-white">ГУГЛ НЕ БРЕШЕ</h2>
+                <p class="text-xl text-gray-400 mt-2">Рейтинг 4.9 у Львові</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-gray-900 p-8 rounded-xl relative">
+                    <i class="fas fa-quote-right absolute top-4 right-4 text-4xl text-gray-800"></i>
+                    <p class="text-gray-300 mb-6 text-lg italic">"Найкращий кебаб у Львові. Базука - це просто космос! Ледве доїв, але воно того варте. М'ясо соковите, лаваш хрумтить."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">О</div>
+                        <div class="ml-3">
+                            <h4 class="font-bold text-white">Олег К.</h4>
+                            <span class="text-xs text-gray-500">Local Guide</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-gray-900 p-8 rounded-xl relative">
+                    <i class="fas fa-quote-right absolute top-4 right-4 text-4xl text-gray-800"></i>
+                    <p class="text-gray-300 mb-6 text-lg italic">"Справжній турецький чай і гостинність. Тут відчуваєш себе не клієнтом, а гостем. Тантуні - це відкриття року для мене."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-dark font-bold">М</div>
+                        <div class="ml-3">
+                            <h4 class="font-bold text-white">Марія С.</h4>
+                            <span class="text-xs text-gray-500">Гурман</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-gray-900 p-8 rounded-xl relative">
+                    <i class="fas fa-quote-right absolute top-4 right-4 text-4xl text-gray-800"></i>
+                    <p class="text-gray-300 mb-6 text-lg italic">"Гостро, смачно, багато. Брав 'Психопата' - це реально пекло, але дуже смачне пекло. Рекомендую всім любителям гострого!"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white font-bold">А</div>
+                        <div class="ml-3">
+                            <h4 class="font-bold text-white">Андрій В.</h4>
+                            <span class="text-xs text-gray-500">Відвідувач</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="https://www.google.com/maps" target="_blank" class="text-primary hover:text-white underline font-display uppercase tracking-wider font-bold transition-colors">Читати всі відгуки на Google Maps</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacts" class="bg-black pt-20 pb-10 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <!-- Left: Info -->
+                <div>
+                    <h2 class="text-5xl font-display font-bold text-white mb-6">ЗАХОДЬ В ГОСТІ</h2>
+                    <p class="text-gray-400 text-lg mb-8 max-w-md">Ми знаходимось на проспекті Чорновола. Приходь за атмосферою, залишайся заради смаку.</p>
+                    
+                    <div class="space-y-4 mb-10">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary mt-1 mr-4 text-xl"></i>
+                            <a href="https://maps.app.goo.gl/RUctKxp4GXAmEuxGA" target="_blank" class="text-xl text-white hover:text-primary transition-colors">
+                                Львів, просп. Чорновола, 16Д
+                            </a>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-phone text-primary mt-1 mr-4 text-xl"></i>
+                            <a href="tel:+380955329899" class="text-xl text-white hover:text-primary transition-colors">+380 95 532 9899</a>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-clock text-primary mt-1 mr-4 text-xl"></i>
+                            <span class="text-xl text-white">Щодня: 10:00 - 22:00</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold text-white mb-4">ДОСТАВКА</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="bg-[#FFC244] text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-400 transition-colors flex items-center">
+                            <i class="fas fa-bicycle mr-2"></i> Glovo
+                        </a>
+                        <a href="#" class="bg-[#34D186] text-white font-bold py-3 px-6 rounded-lg hover:bg-green-500 transition-colors flex items-center">
+                            <i class="fas fa-bolt mr-2"></i> Bolt Food
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Map -->
+                <div class="h-80 lg:h-full min-h-[300px] rounded-xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-500 border border-gray-800 shadow-2xl">
+                    <!-- Updated Map Embed for Chornovola 16D area -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2572.3168798950456!2d24.022931276921312!3d49.85536517148507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add0b0c679a79%3A0x66f6c91010375f4d!2z0L_RgNC-0YHQvy4g0KfQvtGA0L3QvtCy0L7Qu9CwLCAxNiwg0JvRjNCy0ZbQsiwg0JvRjNCy0ZbQstGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCA3OTAwMA!5e0!3m2!1suk!2sua!4v1700000000000!5m2!1suk!2sua" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Fermali Kebab. Всі права захищені.</p>
+                <div class="flex space-x-6">
+                    <a href="https://www.instagram.com/fermali_kebab/" target="_blank" class="text-gray-400 hover:text-primary text-2xl transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100073693073252" target="_blank" class="text-gray-400 hover:text-blue-600 text-2xl transition-colors">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const navbar = document.getElementById('navbar');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                navbar.classList.add('bg-dark');
+            } else {
+                menu.classList.add('hidden');
+                if (window.scrollY < 20) {
+                    navbar.classList.remove('bg-dark');
+                }
+            }
+        }
+
+        // Navbar Background on Scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-dark/95', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                // navbar.classList.remove('bg-dark/95', 'shadow-lg');
+                // Keep bg dark if menu is open? Handled in toggle
+            }
+        });
+
+        // Menu Tabs Filtering
+        function filterMenu(category) {
+            // Update Tab Styles
+            const tabs = document.querySelectorAll('.menu-tab');
+            tabs.forEach(tab => {
+                if (tab.dataset.category === category) {
+                    tab.classList.add('tab-active', 'border-primary', 'text-primary');
+                    tab.classList.remove('border-gray-700', 'text-gray-300');
+                } else {
+                    tab.classList.remove('tab-active', 'border-primary', 'text-primary');
+                    tab.classList.add('border-gray-700', 'text-gray-300');
+                }
+            });
+
+            // Filter Items
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    // Optional: Add fade-in animation
+                    item.classList.add('animate-fade-in');
+                } else {
+                    item.style.display = 'none';
+                    item.classList.remove('animate-fade-in');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
